@@ -1,0 +1,39 @@
+{
+    "name": "@losobka/register.it",
+    "version": "1.0.4",
+    "author": "Łukasz Osóbka <lukasz.osobka@gmail.com>",
+    "type": "module",
+    "main": "dist/register.it.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/losobka/register-it.git"
+    },
+    "dependencies": {
+        "globals": "^15.9.0",
+        "puppeteer": "^23.3.1",
+        "user-agents": "^1.1.325"
+    },
+    "scripts": {
+        "build": "tsc",
+        "cleanup": "rm -Rf dist",
+        "lint": "npx eslint --fix --flag unstable_ts_config --config eslint.config.js",
+        "start": "npm run cleanup && npm run lint && npm run build && node ./dist/register.it.js"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.10.0",
+        "@stylistic/eslint-plugin": "^2.8.0",
+        "@stylistic/eslint-plugin-migrate": "^2.8.0",
+        "@stylistic/eslint-plugin-ts": "^2.8.0",
+        "@types/eslint__js": "^8.42.3",
+        "@types/node": "^22.5.5",
+        "@types/user-agents": "^1.0.4",
+        "@typescript-eslint/parser": "^8.6.0",
+        "@typescript-eslint/typescript-estree": "^8.6.0",
+        "eslint": "^9.10.0",
+        "eslint-plugin-unicorn": "^55.0.0",
+        "eslint-plugin-unused-imports": "^4.1.4",
+        "tsx": "^4.19.1",
+        "typescript": "^5.5.4",
+        "typescript-eslint": "^8.6.0"
+    }
+}
