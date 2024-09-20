@@ -1,3 +1,6 @@
+# @losobka/register.it
+node.js library for register.it
+
 # Installation
 Using NPM:
 ```shell
@@ -5,7 +8,6 @@ npm install @losobka/register-it
 ```
 
 # Usage
-
 ```ts
 import RegisterIt from '@losobka/register-it'
 const registerIt: RegisterIt = new RegisterIt('your@username.email', 'type-password-here', 'losobka.me', 10, { trace: (...messages) => console.debug(...messages)})
