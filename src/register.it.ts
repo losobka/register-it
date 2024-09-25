@@ -107,8 +107,9 @@ export default class RegisterIt {
 
         await this.page.exposeFunction('confirm', () => () => {})
         await this.page.setViewport({height: 1366, width: 900})
-        await this.page.setUserAgent(UserAgent.toString())
-        logger.trace(`setting userargent to \`${UserAgent.toString()}\``)
+        const userAgent: string = (new UserAgent).random().toString();
+        await this.page.setUserAgent(userAgent)
+        logger.trace(`setting userargent to \`${userAgent}\``)
 
         await this.page.goto('https://controlpanel.register.it/welcome.html')
     }
