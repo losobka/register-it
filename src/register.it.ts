@@ -105,11 +105,12 @@ export default class RegisterIt {
                 return Promise.resolve(await dialog.accept())
             })
 
-        this.page.exposeFunction('confirm', () => () => {})
-        this.page.setViewport({height: 1366, width: 900})
-        this.page.setUserAgent(UserAgent.toString())
+        await this.page.exposeFunction('confirm', () => () => {})
+        await this.page.setViewport({height: 1366, width: 900})
+        await this.page.setUserAgent(UserAgent.toString())
+        logger.trace(`setting userargent to \`${UserAgent.toString()}\``)
 
-        this.page.goto('https://controlpanel.register.it/welcome.html')
+        await this.page.goto('https://controlpanel.register.it/welcome.html')
     }
 
     private async closeCookiesModal(): Promise<void> {
