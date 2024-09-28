@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Release
+      - name: Publish release
         id: release
         uses: fdiesel/github-action-node-release@v6.0.0
         with:
