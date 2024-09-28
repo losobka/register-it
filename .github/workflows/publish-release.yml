@@ -1,11 +1,10 @@
-name: Publish NPM package
+name: Publish release
 
 on:
   push:
     branches: master
 
 jobs:
-
   release:
     runs-on: ubuntu-latest
     permissions:
@@ -16,10 +15,8 @@ jobs:
       version: ${{ steps.release.outputs.version }}
 
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v3
-
       - name: Release
         id: release
         uses: fdiesel/github-action-node-release@v6.0.0
