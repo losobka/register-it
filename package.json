@@ -4,9 +4,14 @@
     "author": "Łukasz Osóbka <lukasz.osobka@gmail.com>",
     "type": "module",
     "main": "dist/register.it.js",
+    "types": "dist/register.it.d.ts",
+    "homepage": "https://github.com/losobka/register-it",
     "repository": {
         "type": "git",
         "url": "https://github.com/losobka/register-it.git"
+    },
+    "bugs": {
+        "url": "https://github.com/losobka/register-it/issues"
     },
     "dependencies": {
         "globals": "^15.9.0",
@@ -17,7 +22,8 @@
         "build": "tsc",
         "cleanup": "rm -Rf dist",
         "lint": "npx eslint --fix --flag unstable_ts_config --config eslint.config.js",
-        "start": "npm run cleanup && npm run lint && npm run build && node ./dist/register.it.js"
+        "start": "npm run cleanup && npm run lint && npm run build && node ./dist/register.it.js",
+        "make:release": "npm run cleanup && npm run lint && npm run build && npm version from-git"
     },
     "devDependencies": {
         "@eslint/js": "^9.10.0",
@@ -39,5 +45,6 @@
     "keywords": [
         "register.it",
         "sdk"
-    ]
+    ],
+    "license": "MIT"
 }
