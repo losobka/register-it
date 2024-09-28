@@ -20,19 +20,38 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
-      - run: npm install --include dev
-      - run: npm run lint
+      - name: Clean install dependencies and build
+        run: |
+          npm npm install --include dev
+          npm run lint
 
   build:
-    needs: lint
     runs-on: ubuntu-latest
     steps:
-      - run: npm run build
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org/
+      - name: Clean install dependencies and build
+        run: |
+          npm npm install --include dev
+          npm run lint
+          npm run build
 
   publish-to-npm:
-    needs: build
     runs-on: ubuntu-latest
     steps:
-      - run: npm publish
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org/
+      - name: Clean install dependencies and build
+        run: |
+          npm npm install --include dev
+          npm run lint
+          npm run build
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}

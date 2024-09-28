@@ -4,7 +4,7 @@ Node.js library for [register.it](https://www.register.it)
 # Installation
 Using NPM:
 ```shell
-npm install @losobka/register-it
+npm install @losobka/register.it
 ```
 
 # Usage
