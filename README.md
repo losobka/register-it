@@ -1,5 +1,5 @@
 # @losobka/register.it
-node.js library for register.it
+Node.js library for [register.it](https://www.register.it)
 
 # Installation
 Using NPM:
@@ -28,6 +28,6 @@ console.log(await registerIt.updateDnsRecord(12, {
     type: 'A',
     value: '83.25.152.179'
 }) as DnsRecord)
-console.log(await registerIt.deleteDnsRecord(12) as DnsRecord)
+console.log(await registerIt.deleteDnsRecord(12))
 await registerIt.closeConnection()
 ````
