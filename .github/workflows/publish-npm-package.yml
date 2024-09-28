@@ -22,7 +22,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Clean install dependencies and build
         run: |
-          npm npm install --include dev
+          npm install --include dev
           npm run lint
 
   build:
@@ -35,7 +35,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Clean install dependencies and build
         run: |
-          npm npm install --include dev
+          npm install --include dev
           npm run lint
           npm run build
 
@@ -49,7 +49,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - name: Clean install dependencies and build
         run: |
-          npm npm install --include dev
+          npm install --include dev
           npm run lint
           npm run build
           npm publish

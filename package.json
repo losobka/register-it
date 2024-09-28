@@ -1,6 +1,6 @@
 {
     "name": "@losobka/register.it",
-    "version": "1.2.10",
+    "version": "1.2.11",
     "author": "Łukasz Osóbka <lukasz.osobka@gmail.com>",
     "type": "module",
     "main": "dist/register.it.js",
