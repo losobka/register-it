@@ -8,7 +8,6 @@ npm install @losobka/register.it
 ```
 
 # Usage
-
 ```ts
 import RegisterIt from '@losobka/register-it'
 import {Logger} from "./register.it";
@@ -31,3 +30,6 @@ console.log(await registerIt.updateDnsRecord(12, {
 console.log(await registerIt.deleteDnsRecord(12))
 await registerIt.closeConnection()
 ````
+
+# Licence
+The application is available as open source under the terms of the MIT License.
