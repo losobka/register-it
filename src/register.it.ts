@@ -110,8 +110,7 @@ export default class RegisterIt {
 
         await this.page.exposeFunction('confirm', () => () => {});
         await this.page.setViewport({ height: 1366, width: 900 });
-        const userAgent: string = (new UserAgent)
-            .random()
+        const userAgent: string = (new UserAgent).random()
             .toString();
         await this.page.setUserAgent(userAgent);
         logger.trace(`setting useragent to \`${userAgent}\``);

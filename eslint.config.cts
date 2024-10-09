@@ -1,6 +1,7 @@
 const globals = require('globals')
 const stylistic = require('@stylistic/eslint-plugin')
 const eslint = require("@eslint/js");
+const typescriptEslintParser = require('@typescript-eslint/parser')
 import type { Linter } from "eslint";
 
 const config: Linter.Config[] = [
@@ -16,9 +17,11 @@ const config: Linter.Config[] = [
                 ...globals.browser,
                 ...globals.node,
             },
+            parser: typescriptEslintParser,
             parserOptions: {
                 project: './tsconfig.json',
                 sourceType: 'commonjs',
+                tsconfigRootDir: './',
             },
         },
         rules: {
