@@ -51,17 +51,17 @@ register.it-cli list -h
 >     $ register.it-cli list [options]
 > 
 >   Aliases
->     $ register.it-cli list-dns-records
 >     $ register.it-cli list-dns
 >     $ register.it-cli list-records
+>     $ register.it-cli list-dns-records
 > 
 >   Options
 >     -u, --username          
 >     -p, --password          
 >     -d, --domain            
 >     --max-login-attempts      (default 10)
->     -D, --debug             Displays debug messages  (default true)
->    -H, --headless          Hides browser window  (default true)
+>     -D, --debug             Displays debug messages  (default false)
+>     -H, --headless          Hides browser window  (default true)
 >     -h, --help              Displays this message
 > 
 >   Examples
@@ -97,16 +97,16 @@ register.it-cli update -h
 >     $ register.it-cli update <id> <name> <ttl> <type> <value> [options]
 > 
 >   Aliases
->     $ register.it-cli update-dns-record
 >     $ register.it-cli update-dns
+>     $ register.it-cli update-dns-record
 > 
 >   Options
 >     -u, --username          
 >     -p, --password          
 >     -d, --domain            
 >     --max-login-attempts      (default 10)
->     -D, --debug             Displays debug messages  (default true)
->    -H, --headless          Hides browser window  (default true)
+>     -D, --debug             Displays debug messages  (default false)
+>     -H, --headless          Hides browser window  (default true)
 >     -h, --help              Displays this message
 > 
 >   Examples
@@ -125,17 +125,17 @@ register.it-cli delete -h
 >    $ register.it-cli delete <id> [options]
 >
 >  Aliases
->    $ register.it-cli delete-dns-record
 >    $ register.it-cli delete-dns
+>    $ register.it-cli delete-dns-record
 >
 >  Options
->    -no-confirm
+>    --no-confirm
 >    -u, --username          
 >    -p, --password          
 >    -d, --domain            
 >    --max-login-attempts      (default 10)
->    -D, --debug             Displays debug messages  (default true)
->    -H, --headless          Hides browser window  (default true)
+>    -D, --debug             Displays debug messages  (default false)
+>     -H, --headless         Hides browser window  (default true)
 >    -h, --help              Displays this message
 >
 >  Examples

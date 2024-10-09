@@ -1,58 +1,53 @@
 {
     "name": "@losobka/register.it",
     "version": "1.2.0",
-    "author": "Łukasz Osóbka <lukasz.osobka@gmail.com>",
-    "main": "dist/register.it.js",
-    "types": "dist/register.it.d.ts",
-    "homepage": "https://github.com/losobka/register.it",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/losobka/register.it.git"
-    },
-    "bugs": {
-        "url": "https://github.com/losobka/register.it/issues"
-    },
-    "dependencies": {
-        "@typescript-eslint/eslint-plugin": "^8.8.1",
-        "enquirer": "^2.4.1",
-        "globals": "^15.9.0",
-        "kleur": "^4.1.5",
-        "puppeteer": "^23.3.1",
-        "react": "^18.3.1",
-        "sade": "^1.8.1",
-        "user-agents": "^1.1.325"
-    },
-    "scripts": {
-        "build": "tsc",
-        "cleanup": "rm -Rf dist",
-        "lint": "npx eslint --fix --flag unstable_ts_config --config eslint.config.cjs",
-        "start": "npm run cleanup && npm run lint && npm run build && node ./dist/cli.js",
-        "make:release": "npm run cleanup && npm run lint && npm run build && npm version from-git"
-    },
-    "devDependencies": {
-        "@eslint/js": "^9.10.0",
-        "@stylistic/eslint-plugin": "^2.8.0",
-        "@stylistic/eslint-plugin-migrate": "^2.8.0",
-        "@stylistic/eslint-plugin-ts": "^2.8.0",
-        "@types/eslint__js": "^8.42.3",
-        "@types/node": "^22.7.5",
-        "@types/user-agents": "^1.0.4",
-        "@typescript-eslint/parser": "^8.8.1",
-        "@typescript-eslint/typescript-estree": "^8.6.0",
-        "eslint": "^9.10.0",
-        "eslint-plugin-unicorn": "^55.0.0",
-        "eslint-plugin-unused-imports": "^4.1.4",
-        "tsx": "latest",
-        "typescript": "latest",
-        "typescript-eslint": "^8.6.0"
-    },
     "keywords": [
         "register.it",
         "sdk",
         "cli"
     ],
+    "homepage": "https://github.com/losobka/register.it",
+    "bugs": {
+        "url": "https://github.com/losobka/register.it/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/losobka/register.it.git"
+    },
     "license": "MIT",
+    "author": "Łukasz Osóbka <lukasz.osobka@gmail.com>",
+    "main": "dist/register.it.js",
+    "types": "dist/register.it.d.ts",
     "bin": {
         "register.it-cli": "dist/cli.js"
-    }
+    },
+    "dependencies": {
+        "enquirer": "^2.4.1",
+        "globals": "^15.11.0",
+        "kleur": "^4.1.5",
+        "puppeteer": "^23.5.1",
+        "react": "^18.3.1",
+        "sade": "^1.8.1",
+        "tsx": "^4.19.1",
+        "typescript": "^5.6.3",
+        "user-agents": "^1.1.325"
+    },
+    "scripts": {
+        "build": "tsc",
+        "lint": "npx eslint --fix --flag unstable_ts_config --config eslint.config.cts --debug --ignore-pattern dist",
+        "make:release": "npm run cleanup && npm run lint && npm run build && npm version from-git",
+        "prestart": "npm install && npm run lint && npm run build",
+        "start": "node ./dist/cli.js",
+        "uninstall": "rm -Rf {node_modules,dist}"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.12.0",
+        "@stylistic/eslint-plugin": "^2.9.0",
+        "@types/eslint__js": "^8.42.3",
+        "@types/node": "^22.7.5",
+        "@types/user-agents": "^1.0.4",
+        "eslint": "^9.12.0",
+        "jiti": "^2.3.3"
+    },
+    "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
