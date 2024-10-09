@@ -48,7 +48,8 @@
     },
     "keywords": [
         "register.it",
-        "sdk"
+        "sdk",
+        "cli"
     ],
     "license": "MIT"
 }
