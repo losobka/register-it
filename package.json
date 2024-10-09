@@ -5,13 +5,13 @@
     "type": "module",
     "main": "dist/register.it.js",
     "types": "dist/register.it.d.ts",
-    "homepage": "https://github.com/losobka/register-it",
+    "homepage": "https://github.com/losobka/register.it",
     "repository": {
         "type": "git",
-        "url": "https://github.com/losobka/register-it.git"
+        "url": "https://github.com/losobka/register.it.git"
     },
     "bugs": {
-        "url": "https://github.com/losobka/register-it/issues"
+        "url": "https://github.com/losobka/register.it/issues"
     },
     "dependencies": {
         "enquirer": "^2.4.1",
