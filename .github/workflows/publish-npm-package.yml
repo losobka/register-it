@@ -20,9 +20,9 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
-      - name: Clean install dependencies and build
+      - name: Clean install dependencies and lint
         run: |
-          npm install --include dev
+          npm ci
           npm run lint
 
   build:
@@ -33,9 +33,9 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
-      - name: Clean install dependencies and build
+      - name: Clean install dependencies, lint and build
         run: |
-          npm install --include dev
+          npm ci
           npm run lint
           npm run build
 
@@ -47,9 +47,9 @@ jobs:
         with:
           node-version: 22
           registry-url: https://registry.npmjs.org/
-      - name: Clean install dependencies and build
+      - name: Clean install dependencies, lint, build and publish
         run: |
-          npm install --include dev
+          npm ci
           npm run lint
           npm run build
           npm publish
