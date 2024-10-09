@@ -25,26 +25,26 @@ export class DnsRecordNotFoundError extends Error {
 }
 
 interface FakeBrowser {
-    newPage()
-    close()
+    newPage(): Page | FakePage
+    close(): unknown
 }
 
 interface FakePage {
-    close()
-    waitForNavigation()
-    waitForSelector()
-    waitForNavigation()
-    waitForNetworkIdle()
-    $()
-    $$()
-    goto()
-    $$eval()
-    url()
-    screenshot()
-    on()
-    exposeFunction()
-    setViewport()
-    setUserAgent()
+    close(): unknown
+    waitForNavigation(): unknown
+    waitForSelector(selector: string): any | any[] | Promise<any>
+    waitForNavigation(): unknown
+    waitForNetworkIdle(): unknown
+    $(selector: string): any | any[]
+    $$(selector: string): any | any[]
+    goto(url: string): any | any[] | Promise<any>
+    $$eval(selector: string, callback: any): any[] | any
+    url(): unknown
+    screenshot(): unknown
+    on(): unknown
+    exposeFunction(): unknown
+    setViewport(): unknown
+    setUserAgent(): unknown
 }
 
 export default class RegisterIt {
@@ -54,14 +54,16 @@ export default class RegisterIt {
     private browser: Browser | FakeBrowser;
     private page: Page | FakePage;
     private alreadyLoggedIn: boolean;
-    private maxLoginAttempts: number;
-    private logger: Logger;
+    private readonly maxLoginAttempts: number;
+    private readonly headless: boolean;
+    private readonly logger: Logger;
 
     public constructor(
         username: string,
         password: string,
         domain: string,
         maxLoginAttempts: number = 0,
+        headless: boolean = true,
         logger: Logger = { trace: () => { } }
     ) {
         this.username = username;
@@ -74,13 +76,13 @@ export default class RegisterIt {
         } as FakeBrowser;
         this.page = {
             close: () => { },
-            waitForSelector: () => { },
+            waitForSelector: (selector: string) => { },
             waitForNavigation: () => { },
             waitForNetworkIdle: () => { },
             $: () => { },
             $$: () => { },
-            goto: () => { },
-            $$eval: () => { },
+            goto: (url: string): any => { },
+            $$eval: (selector: string, callback: any): any => { },
             url: () => { },
             screenshot: () => { },
             on: () => { },
@@ -88,11 +90,12 @@ export default class RegisterIt {
             setViewport: () => { },
             setUserAgent: () => { }
         } as FakePage
+        this.headless = headless
         this.logger = logger
     }
 
     private async initialize(): Promise<void> {
-        this.browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--start-maximized'] })
+        this.browser = await puppeteer.launch({ headless: this.headless, args: ['--no-sandbox', '--start-maximized'] })
         this.page = await this.browser.newPage()
 
         const logger = this.logger;
@@ -109,7 +112,7 @@ export default class RegisterIt {
         await this.page.setViewport({height: 1366, width: 900})
         const userAgent: string = (new UserAgent).random().toString();
         await this.page.setUserAgent(userAgent)
-        logger.trace(`setting userargent to \`${userAgent}\``)
+        logger.trace(`setting useragent to \`${userAgent}\``)
 
         await this.page.goto('https://controlpanel.register.it/welcome.html')
     }
@@ -120,7 +123,7 @@ export default class RegisterIt {
 
         this.page.waitForSelector(cookiesRejectButtonSelector)
             .then(async () => this.page.$(cookiesRejectButtonSelector))
-            .then(async (el: ElementHandle<Element>) => el.evaluate(el => (el as HTMLButtonElement).click()))
+            .then(async (el: ElementHandle<Element>) => el.evaluate((el: Element) => (el as HTMLButtonElement).click()))
             .then(() => logger.trace('clicked `reject all cookies` button'))
     }
 
@@ -152,7 +155,7 @@ export default class RegisterIt {
             loginAttempts++
 
             if (this.maxLoginAttempts === loginAttempts)
-                throw new Error('Max login attemps reached, please try aggain later')
+                throw new Error('Max login attempts reached, please try again later')
 
         } while (this.page.url() !== 'https://controlpanel.register.it/' && ((this.maxLoginAttempts as unknown as boolean) && loginAttempts < this.maxLoginAttempts))
 
@@ -163,7 +166,7 @@ export default class RegisterIt {
     public async getDnsRecords(): Promise<ExistingDnsRecord[]> {
         const logger = this.logger;
 
-        if (false === this.alreadyLoggedIn) {
+        if (!this.alreadyLoggedIn) {
             await this.initialize()
             await this.closeCookiesModal()
             await this.login()
@@ -177,63 +180,63 @@ export default class RegisterIt {
         await this.page.goto(`https://controlpanel.register.it/firstLevel/view.html?domain=${this.domain}`)
             .then(async () => this.page.waitForSelector(domainSelector))
             .then(async () => this.page.$(domainSelector))
-            .then(async (el: ElementHandle<HTMLAnchorElement>) => el.evaluate(el => el.click()))
+            .then(async (el: ElementHandle<HTMLAnchorElement>) => el.evaluate((el: HTMLAnchorElement) => el.click()))
             .then(() => logger.trace(`clicking \`${this.domain}\` link`))
             .then(async () => this.page.waitForNavigation())
             .then(async () => this.page.waitForSelector(domainAndDnsLinkSelector))
             .then(() => logger.trace('clicking `DOMAIN & DNS` link'))
             .then(async () => this.page.$(domainAndDnsLinkSelector))
-            .then(async (el: ElementHandle<HTMLAnchorElement>) => el.evaluate(el => el.click()))
+            .then(async (el: ElementHandle<HTMLAnchorElement>) => el.evaluate((el: HTMLAnchorElement) => el.click()))
             .then(async () => this.page.waitForNavigation())
             .then(async () => this.page.waitForSelector(dnsConfigurationLinkSelector))
             .then(() => logger.trace('clicking `DNS configuration` link'))
             .then(async () => this.page.$(dnsConfigurationLinkSelector))
-            .then(async (el: ElementHandle<HTMLAnchorElement>) => el.evaluate(el => el.click()))
+            .then(async (el: ElementHandle<HTMLAnchorElement>) => el.evaluate((el: HTMLAnchorElement) => el.click()))
             .then(async () => this.page.waitForNavigation())
             .then(async () => this.page.waitForSelector(advancedTabLinkSelector))
             .then(() => logger.trace('clicking `Advanced` link'))
             .then(async () => this.page.$(advancedTabLinkSelector))
-            .then(async (el: ElementHandle<HTMLAnchorElement>) => el.evaluate(el => el.click()))
+            .then(async (el: ElementHandle<HTMLAnchorElement>) => el.evaluate((el: HTMLAnchorElement) => el.click()))
             .then(async () => this.page.waitForNavigation())
 
         const dnsNames: string[] = await this.page.$$eval(
             'form.dnsTable table.dinamicList tbody tr.rMain input.recordName',
-            elements => {
+            (elements: HTMLInputElement[]) => {
                 return elements.map(
-                    (element) => {
+                    (element: HTMLInputElement) => {
                         return element.value
-                    },
+                    }
                 );
-            },
+            }
         )
 
         const dnsTtls: string[] = await this.page.$$eval(
             'form.dnsTable table.dinamicList tbody tr.rMain input.recordTTL',
-            elements => elements.map(element => element.value)
+            (elements: HTMLInputElement[]) => elements.map((element: HTMLInputElement) => element.value)
         )
 
         const dnsTypes: string[] = await this.page.$$eval(
             'form.dnsTable table.dinamicList tbody tr.rMain select.recordType',
-            elements => elements.map(element => element.value)
+            (elements: HTMLSelectElement[]) => elements.map((element: HTMLSelectElement) => element.value)
         )
 
         const dnsValues: string[] = await this.page.$$eval(
             'form.dnsTable table.dinamicList tbody tr.rMain textarea.recordValue',
-            elements => elements.map(element => element.value)
+            (elements: HTMLTextAreaElement[]) => elements.map((element: HTMLTextAreaElement) => element.value)
         )
 
         const dnsRowsWithIds: string[] = await this.page.$$eval(
             'form.dnsTable table.dinamicList tbody tr.rMain',
-            elements => elements.map((element, key: number) => element.id = (key + 1).toString()),
+            (elements: HTMLTableRowElement[]) => elements.map((element: HTMLTableRowElement, key: number) => element.id = (key + 1).toString()),
         )
 
         const dnsRecords: ExistingDnsRecord[] = []
 
         for (let i: number = 0; i < dnsNames.length; i++) {
             dnsRecords.push({
-                id: dnsRowsWithIds[i] as unknown as number,
+                id: Number(dnsRowsWithIds[i]),
                 name: dnsNames[i],
-                ttl: dnsTtls[i] as unknown as number,
+                ttl: Number(dnsTtls[i]),
                 type: dnsTypes[i],
                 value: dnsValues[i],
             } as ExistingDnsRecord)
@@ -245,7 +248,7 @@ export default class RegisterIt {
     public async removeDnsRecord(id: number): Promise<void> {
         const logger = this.logger;
 
-        if (false === this.alreadyLoggedIn) {
+        if (!this.alreadyLoggedIn) {
             await this.initialize()
             await this.closeCookiesModal()
             await this.login()
@@ -286,7 +289,6 @@ export default class RegisterIt {
         } catch (error) {
             if (error instanceof TimeoutError)
                 throw new DnsRecordNotFoundError
-                // throw new Error('The specified record does not exists')
         }
 
         await this.page.waitForSelector(dnsRecordRemoveActionLinkSelector(id))
@@ -311,10 +313,10 @@ export default class RegisterIt {
 
             .then(async () => this.page.waitForNavigation())
     }
-    public async addDnsRecord(record: { name: string, ttl: string | number, type: string, value: string }): Promise<DnsRecord> {
+    public async addDnsRecord(record: { name: string, ttl: string | number, type: string, value: string }): Promise<ExistingDnsRecord> {
         const logger = this.logger;
 
-        if (false === this.alreadyLoggedIn) {
+        if (!this.alreadyLoggedIn) {
             await this.initialize()
             await this.closeCookiesModal()
             await this.login()
@@ -360,8 +362,7 @@ export default class RegisterIt {
             .then(async () => this.page.$(addDnsRecordButtonSelector)
             .then(async (el: ElementHandle<HTMLAnchorElement>) => el.evaluate(el => el.click()))
             .then(async () => this.page.$$('.rMain'))
-            .then((elements: Element[]) => elements.length))
-
+            .then((elements: ElementHandle[]) => elements.length))
 
         await this.page.$(addDnsRecordNameSelector(id))
             .then(async (el: ElementHandle<HTMLInputElement>) => el.type(record.name))
@@ -387,13 +388,13 @@ export default class RegisterIt {
             .then(async (el: ElementHandle<HTMLAnchorElement>) => el.evaluate(el => el.click()))
             .then(async () => this.page.waitForNavigation())
 
-        return { id: id.toString(), ...record } as DnsRecord
+        return { id, ...record } as ExistingDnsRecord;
     }
 
     public async updateDnsRecord(id: number, record: DnsRecord): Promise<ExistingDnsRecord> {
-        const logger = this.logger;
+        const logger: Logger = this.logger
 
-        if (false === this.alreadyLoggedIn) {
+        if (!this.alreadyLoggedIn) {
             await this.initialize()
             await this.closeCookiesModal()
             await this.login()
@@ -437,7 +438,6 @@ export default class RegisterIt {
         } catch (error) {
             if (error instanceof TimeoutError)
                 throw new DnsRecordNotFoundError
-                // throw new Error('The specified record does not exists')
         }
 
         await this.page.waitForSelector(addDnsRecordNameSelector(id))
@@ -475,7 +475,7 @@ export default class RegisterIt {
             .then(async (el: ElementHandle<HTMLAnchorElement>) => el.evaluate(el => el.click()))
             .then(async () => this.page.waitForNavigation())
 
-        return { id: id.toString(), ...record } as ExistingDnsRecord
+        return { id, ...record } as ExistingDnsRecord
     }
 
     public async closeConnection(): Promise<void> {

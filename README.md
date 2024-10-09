@@ -17,7 +17,7 @@ const registerIt: RegisterIt = new RegisterIt(
     'type-password-here',
     'losobka.me',
     10,
-    {trace: (...messages) => console.debug(...messages)
+    {trace: (...messages) => console.debug(...messages)})
 );
 
 console.log(await registerIt.getDnsRecords())
@@ -34,7 +34,7 @@ console.log(await registerIt.updateDnsRecord(12, {
     ttl: 600,
     type: 'A',
     value: '83.25.152.179'
-}) as DnsRecord
+} as DnsRecord))
 
 console.log(await registerIt.deleteDnsRecord(12))
 
@@ -61,6 +61,7 @@ register.it-cli list -h
 >     -d, --domain            
 >     --max-login-attempts      (default 10)
 >     -D, --debug             Displays debug messages  (default true)
+>    -H, --headless          Hides browser window  (default true)
 >     -h, --help              Displays this message
 > 
 >   Examples
@@ -105,6 +106,7 @@ register.it-cli update -h
 >     -d, --domain            
 >     --max-login-attempts      (default 10)
 >     -D, --debug             Displays debug messages  (default true)
+>    -H, --headless          Hides browser window  (default true)
 >     -h, --help              Displays this message
 > 
 >   Examples
@@ -127,12 +129,13 @@ register.it-cli delete -h
 >    $ register.it-cli delete-dns
 >
 >  Options
->    -no-confirm, --nc       
+>    -no-confirm
 >    -u, --username          
 >    -p, --password          
 >    -d, --domain            
 >    --max-login-attempts      (default 10)
 >    -D, --debug             Displays debug messages  (default true)
+>    -H, --headless          Hides browser window  (default true)
 >    -h, --help              Displays this message
 >
 >  Examples
