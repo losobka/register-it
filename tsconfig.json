@@ -12,7 +12,7 @@
         // "disableReferencedProjectLoad": true,             /* Reduce the number of projects loaded automatically by TypeScript. */
 
         /* Language and Environment */
-        "target": "es2017",
+        "target": "es6",
         /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
         "lib": [
             "DOM",
@@ -33,11 +33,11 @@
         /* Control what method is used to detect module-format JS files. */
 
         /* Modules */
-        "module": "NodeNext",
+        "module": "commonjs",
         /* Specify what module code is generated. */
         "rootDir": "./src",
         /* Specify the root folder within your source files. */
-        "moduleResolution": "nodenext",
+        "moduleResolution": "node",
         /* Specify how TypeScript looks up a file from a given module specifier. */
         "baseUrl": "./",
         /* Specify the base directory to resolve non-relative module names. */
@@ -56,9 +56,9 @@
         // "moduleSuffixes": [],                             /* List of file name suffixes to search when resolving a module. */
         "allowImportingTsExtensions": false,
         /* Allow imports to include TypeScript file extensions. Requires '--moduleResolution bundler' and either '--noEmit' or '--emitDeclarationOnly' to be set. */
-        "resolvePackageJsonExports": true,
+        "resolvePackageJsonExports": false,
         /* Use the package.json 'exports' field when resolving package imports. */
-        "resolvePackageJsonImports": true,
+        "resolvePackageJsonImports": false,
         /* Use the package.json 'imports' field when resolving imports. */
         // "customConditions": [],                           /* Conditions to set in addition to the resolver-specific defaults when resolving imports. */
         "resolveJsonModule": true,
@@ -105,13 +105,13 @@
 
         /* Interop Constraints */
         // "isolatedModules": true,                          /* Ensure that each file can be safely transpiled without relying on other imports. */
-        "verbatimModuleSyntax": true,
+        "verbatimModuleSyntax": false,
         /* Interop Constraints */
         /* Do not transform or elide any imports or exports not marked as type-only, ensuring they are written in the output file's format based on the 'module' setting. */
         // "isolatedDeclarations": true,                     /* Require sufficient annotation on exports so other tools can trivially generate declaration files. */
         "allowSyntheticDefaultImports": true,
         /* Allow 'import x from y' when a module doesn't have a default export. */
-        "esModuleInterop": false,
+        "esModuleInterop": true,
         /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables '
         ' for type compatibility. */
         // "preserveSymlinks": true,                         /* Disable resolving symlinks to their realpath. This correlates to the same flag in node. */
@@ -119,7 +119,7 @@
         /* Ensure that casing is correct in imports. */
 
         /* Type Checking */
-        "strict": false,
+        "strict": true,
         /* Enable all strict type-checking options. */
         "noImplicitAny": false,
         /* Enable error reporting for expressions and declarations with an implied 'any' type. */
@@ -133,13 +133,13 @@
         /* Check for class properties that are declared but not set in the constructor. */
         "noImplicitThis": true,
         /* Enable error reporting when 'this' is given the type 'any'. */
-        "useUnknownInCatchVariables": true,
+        "useUnknownInCatchVariables": false,
         /* Default catch clause variables as 'unknown' instead of 'any'. */
         "alwaysStrict": true,
         /* Ensure 'use strict' is always emitted. */
-        "noUnusedLocals": true,
+        "noUnusedLocals": false,
         /* Enable error reporting when local variables aren't read. */
-        "noUnusedParameters": true,
+        "noUnusedParameters": false,
         /* Raise an error when a function parameter isn't read. */
         "exactOptionalPropertyTypes": true,
         /* Interpret optional property types as written, rather than adding 'undefined'. */
@@ -161,8 +161,9 @@
         /* Completeness */
         "skipDefaultLibCheck": false,
         /* Skip type checking .d.ts files that are included with TypeScript. */
-        "skipLibCheck": true
+        "skipLibCheck": false,
         /* Skip type checking all .d.ts files. */
+        "jsx": "react-jsx"
     },
     "include": [
         "src/**/*"
@@ -172,6 +173,6 @@
         "dist",
         "**/*.js",
         "**/*.d.ts",
-        "eslint.config.js"
+        "eslint.config.cjs"
     ]
 }

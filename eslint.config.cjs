@@ -1,25 +1,27 @@
-import globals from 'globals'
-import * as tseslint from 'typescript-eslint'
-import typescriptParser from '@typescript-eslint/parser'
-import TSESTree from '@typescript-eslint/typescript-estree'
-import eslintPluginUnicorn from 'eslint-plugin-unicorn'
-import stylisticTs from '@stylistic/eslint-plugin-ts'
-import stylistic from '@stylistic/eslint-plugin'
-import StylisticPlugin from '@stylistic/eslint-plugin'
-import unusedImports from 'eslint-plugin-unused-imports'
+const globals = require('globals')
+const tseslint = require('typescript-eslint')
+const typescriptParser = require('@typescript-eslint/parser')
+const typescriptPlugin = require('@typescript-eslint/eslint-plugin')
+// const TSESTree = require('@typescript-eslint/typescript-estree')
+const eslintPluginUnicorn = require('eslint-plugin-unicorn')
+const stylisticTs = require('@stylistic/eslint-plugin-ts')
+const stylistic = require('@stylistic/eslint-plugin')
+// const StylisticPlugin = require('@stylistic/eslint-plugin')
+const unusedImports = require('eslint-plugin-unused-imports')
 
-// export default tseslint.config(
-export default stylistic.configs.customize(
+module.exports = stylistic.configs.customize(
   {
     files: ['*src/**/*.ts', 'src/**/*.tsx'],
-    ignores: ['dist', '**/*.js', '**/*.jsx', 'eslint.config.js', '*.d.ts'],
+    ignores: ['dist', '**/*.js', '**/*.jsx', 'eslint.config.cjs', '*.d.ts'],
     plugins: {
+      '@typescript-eslint/eslint-plugin': typescriptPlugin,
       'unicorn': eslintPluginUnicorn,
       '@stylistic/ts': stylisticTs,
       'unused-imports': unusedImports,
     },
     extends: [
       ...tseslint.configs.stylisticTypeChecked,
+      typescriptPlugin.configs,
       eslintPluginUnicorn.configs['flat/recommended'],
       stylistic.configs['recommended-flat'],
       stylistic.configs['migrate'],
@@ -35,7 +37,7 @@ export default stylistic.configs.customize(
         // programs: [TSESTree.createProgram('tsconfig.json')],
         extraFileExtensions: '**/*.ts',
         project: './tsconfig.json',
-        sourceType: 'module',
+        sourceType: 'commonjs',
         tsconfigRootDir: './',
       },
     },
@@ -76,8 +78,8 @@ export default stylistic.configs.customize(
       '@stylistic/multiline-ternary': ['error', 'always'],
       '@stylistic/no-multiple-empty-lines': ['error', { max: 1 }],
       '@stylistic/comma-dangle': ['error', 'always'],
-      '@stylisticts/no-extra-semi': ['error', 'never'],
-      '@stylisticts/ts/quotes': ['error', 'single'],
+      '@stylistic/no-extra-semi': ['error', 'never'],
+      '@stylistic/ts/quotes': ['error', 'single'],
     },
   },
 )
