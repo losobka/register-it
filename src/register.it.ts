@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os'
 const delay = async (milliseconds: number) => new Promise((resolve) => { setTimeout(resolve, milliseconds) })
 export interface DnsRecord {
     name: string;
-    type: 'NS' | 'A' | 'CNAME' | 'MX' | 'TXT' | 'SRV' | 'AAAA' | 'CAA' | 'ALIAS' | 'SPF';
+    type: 'NS' | 'A' | 'CNAME' | 'MX' | 'TXT' | 'SRV' | 'AAAA' | 'CAA' | 'ALIAS' | 'SPF' | string;
     ttl: number;
     value: string;
 }
@@ -160,7 +160,7 @@ export default class RegisterIt {
         this.alreadyLoggedIn = true
     }
 
-    public async getDnsRecords(): Promise<object[]> {
+    public async getDnsRecords(): Promise<ExistingDnsRecord[]> {
         const logger = this.logger;
 
         if (false === this.alreadyLoggedIn) {
@@ -227,16 +227,16 @@ export default class RegisterIt {
             elements => elements.map((element, key: number) => element.id = (key + 1).toString()),
         )
 
-        const dnsRecords: object[] = []
+        const dnsRecords: ExistingDnsRecord[] = []
 
         for (let i: number = 0; i < dnsNames.length; i++) {
             dnsRecords.push({
-                id: dnsRowsWithIds[i],
+                id: dnsRowsWithIds[i] as unknown as number,
                 name: dnsNames[i],
-                ttl: dnsTtls[i],
+                ttl: dnsTtls[i] as unknown as number,
                 type: dnsTypes[i],
                 value: dnsValues[i],
-            })
+            } as ExistingDnsRecord)
         }
 
         return dnsRecords

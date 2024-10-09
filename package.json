@@ -14,15 +14,19 @@
         "url": "https://github.com/losobka/register-it/issues"
     },
     "dependencies": {
+        "enquirer": "^2.4.1",
         "globals": "^15.9.0",
+        "kleur": "^4.1.5",
         "puppeteer": "^23.3.1",
+        "react": "^18.3.1",
+        "sade": "^1.8.1",
         "user-agents": "^1.1.325"
     },
     "scripts": {
         "build": "tsc",
         "cleanup": "rm -Rf dist",
         "lint": "npx eslint --fix --flag unstable_ts_config --config eslint.config.js",
-        "start": "npm run cleanup && npm run lint && npm run build && node ./dist/register.it.js",
+        "start": "npm run cleanup && npm run lint && npm run build && node ./dist/cli.js",
         "make:release": "npm run cleanup && npm run lint && npm run build && npm version from-git"
     },
     "devDependencies": {
