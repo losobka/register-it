@@ -40,7 +40,8 @@ program
             opts['password'] || (await enquirer.prompt({ type: 'password', name: 'password', message: 'What is the password?' }) as InputPropsPassword).password,
             opts['domain'] || (await enquirer.prompt({ type: 'input', name: 'domain', message: 'What is the domain?' }) as InputPropsDomain).domain,
             Number(opts['max-login-attempts']),
-            opts['headless']
+            opts['headless'],
+            ! Boolean(opts['debug'])
         );
 
         await registerIt.getDnsRecords()
@@ -63,7 +64,8 @@ program
             opts['password'] || (await enquirer.prompt({ type: 'password', name: 'password', message: 'What is the password?' }) as InputPropsPassword).password,
             opts['domain'] || (await enquirer.prompt({ type: 'input', name: 'domain', message: 'What is the domain?' }) as InputPropsDomain).domain,
             Number(opts['max-login-attempts']),
-            opts['headless']
+            opts['headless'],
+            ! Boolean(opts['debug'])
         );
 
         const dnsRecord: ExistingDnsRecord = await registerIt.addDnsRecord({ name: name, ttl: Number(ttl), type: type, value: value })
@@ -83,7 +85,8 @@ program
             opts['password'] || (await enquirer.prompt({ type: 'password', name: 'password', message: 'What is the password?' }) as InputPropsPassword).password,
             opts['domain'] || (await enquirer.prompt({ type: 'input', name: 'domain', message: 'What is the domain?' }) as InputPropsDomain).domain,
             Number(opts['max-login-attempts']),
-            opts['headless']
+            opts['headless'],
+            ! Boolean(opts['debug'])
         );
 
         const dnsRecords: ExistingDnsRecord[] = await registerIt.getDnsRecords();
@@ -108,7 +111,8 @@ program
             opts['password'] || (await enquirer.prompt({ type: 'password', name: 'password', message: 'What is the password?' }) as InputPropsPassword).password,
             opts['domain'] || (await enquirer.prompt({ type: 'input', name: 'domain', message: 'What is the domain?' }) as InputPropsDomain).domain,
             Number(opts['max-login-attempts']),
-            opts['headless']
+            opts['headless'],
+            ! Boolean(opts['debug'])
         );
 
         if (undefined === opts['confirm']) {

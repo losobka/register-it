@@ -17,7 +17,8 @@ const registerIt: RegisterIt = new RegisterIt(
     'type-password-here',
     'losobka.me',
     10,
-    {trace: (...messages) => console.debug(...messages)})
+    false,
+    false
 );
 
 console.log(await registerIt.getDnsRecords())
