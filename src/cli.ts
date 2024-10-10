@@ -41,7 +41,7 @@ program
             opts['domain'] || (await enquirer.prompt({ type: 'input', name: 'domain', message: 'What is the domain?' }) as InputPropsDomain).domain,
             Number(opts['max-login-attempts']),
             opts['headless'],
-            ! Boolean(opts['debug'])
+            ! opts['debug']
         );
 
         await registerIt.getDnsRecords()
@@ -65,7 +65,7 @@ program
             opts['domain'] || (await enquirer.prompt({ type: 'input', name: 'domain', message: 'What is the domain?' }) as InputPropsDomain).domain,
             Number(opts['max-login-attempts']),
             opts['headless'],
-            ! Boolean(opts['debug'])
+            ! opts['debug']
         );
 
         const dnsRecord: ExistingDnsRecord = await registerIt.addDnsRecord({ name: name, ttl: Number(ttl), type: type, value: value })
@@ -86,7 +86,7 @@ program
             opts['domain'] || (await enquirer.prompt({ type: 'input', name: 'domain', message: 'What is the domain?' }) as InputPropsDomain).domain,
             Number(opts['max-login-attempts']),
             opts['headless'],
-            ! Boolean(opts['debug'])
+            ! opts['debug']
         );
 
         const dnsRecords: ExistingDnsRecord[] = await registerIt.getDnsRecords();
@@ -112,7 +112,7 @@ program
             opts['domain'] || (await enquirer.prompt({ type: 'input', name: 'domain', message: 'What is the domain?' }) as InputPropsDomain).domain,
             Number(opts['max-login-attempts']),
             opts['headless'],
-            ! Boolean(opts['debug'])
+            ! opts['debug']
         );
 
         if (undefined === opts['confirm']) {
