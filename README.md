@@ -10,7 +10,7 @@ npm install -g @losobka/register.it
 # Usage examples
 ## SDK
 ```ts
-import RegisterIt from '@losobka/register-it'
+import RegisterIt from '@losobka/register.it'
 
 const registerIt: RegisterIt = new RegisterIt(
     'your@username.email',
