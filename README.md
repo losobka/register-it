@@ -136,7 +136,7 @@ register.it-cli delete -h
 >    -d, --domain            
 >    --max-login-attempts      (default 10)
 >    -D, --debug             Displays debug messages  (default false)
->     -H, --headless         Hides browser window  (default true)
+>    -H, --headless          Hides browser window  (default true)
 >    -h, --help              Displays this message
 >
 >  Examples
